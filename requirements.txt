@@ -1,0 +1,7 @@
+PIL
+pytesseract
+urllib
+cStringIO
+numpy
+scrapy
+bs4
