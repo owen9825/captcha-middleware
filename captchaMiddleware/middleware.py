@@ -74,9 +74,7 @@ class CaptchaMiddleware(object):
             return possibleFields[0]["name"];
 
     def process_response(self, request, response, spider):
-        #if not request.meta.get('captcha_solved', False):
-        #    return response; # only solve requests with this meta key
-        captchaUrl = findCaptchaUrl(response.text);
+        captchaUrl = self.findCaptchaUrl(response.text);
         if captchaUrl is None:
             return response; # No CAPTCHA is present
         elif request.meta.get(RETRY_KEY, MAX_CAPTCHA_ATTEMPTS) == MAX_CAPTCHA_ATTEMPTS:
