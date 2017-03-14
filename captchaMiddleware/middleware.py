@@ -77,7 +77,7 @@ class CaptchaMiddleware(object):
         captchaUrl = self.findCaptchaUrl(response.text);
         if captchaUrl is None:
             return response; # No CAPTCHA is present
-        elif request.meta.get(RETRY_KEY, MAX_CAPTCHA_ATTEMPTS) == MAX_CAPTCHA_ATTEMPTS:
+        elif request.meta.get(RETRY_KEY, self.MAX_CAPTCHA_ATTEMPTS) == self.MAX_CAPTCHA_ATTEMPTS:
             logger.warning("Too many CAPTCHA attempts; surrendering.");
             raise IgnoreRequest;
         captchaSolution = solveCaptcha(url = captchaUrl, brazen=True);
