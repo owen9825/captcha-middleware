@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from scrapy.http import FormRequest
+from scrapy.http import FormRequest, IgnoreRequest
 import logging
 import locale
 from bs4 import BeautifulSoup
