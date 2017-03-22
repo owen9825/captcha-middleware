@@ -65,10 +65,10 @@ def adjustAngle(angle):
 
 def solveCaptcha(imgUrl, brazen=False):
     result = applyOcr(imgUrl);
-    logging.debug("CAPTCHA was solved as {0:s}".format(wordSolution));
+    logging.debug("CAPTCHA was solved as %s", wordSolution);
     if isPossible(result):
         return result;
-    elif(brazen):
+    elif brazen:
         # Guess something
         result = adjustSuggestion(result);
     else:
@@ -98,17 +98,17 @@ def applyOcr(imgUrl):
         charResult = image_to_string(pilImg, config="-psm 10");
         print(charResult);
         if charResult is not None and len(charResult) > 0:
-            logging.debug("Letter {0:d}: {1:s}".format(c, charResult));
+            logging.debug("Letter %d: %s", c, charResult);
             moments = cv2.moments(contour);
             xCentre = int(moments["m10"]/moments["m00"]);
             while xCentre in letters:
                 xCentre += 1; # Avoid key clash
             letters[xCentre] = charResult.upper();
         else:
-            logging.debug("No result for character {0:d}".format(c));
+            logging.debug("No result for character %d", c);
     # Adjust letters based on X axis
     wordSolution = "";
     for xCentre in sorted(letters.keys()):
         wordSolution += letters[xCentre];
-    logging.debug("Proposing answer {0:s}".format(wordSolution));
+    logging.debug("Proposing answer %s", wordSolution);
     return wordSolution;

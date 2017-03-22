@@ -82,14 +82,13 @@ class CaptchaMiddleware(object):
         elif request.meta.get(RETRY_KEY, self.MAX_CAPTCHA_ATTEMPTS) == self.MAX_CAPTCHA_ATTEMPTS:
             logger.warning("Too many CAPTCHA attempts; surrendering.");
             raise IgnoreRequest;
-        captchaSolution = solveCaptcha(url = captchaUrl, brazen=True);
+        captchaSolution = solveCaptcha(imgUrl=captchaUrl, brazen=True);
         if captchaSolution is None:
             logger.error("CAPTCHA page detected, but no solution was proposed.");
             raise IgnoreRequest;
         # Return a request to submit the captcha
-        logger.info("Submitting solution {0:s} for CAPTCHA at {1:s}".format(captchaSolution,
-            captchaUrl));
+        logger.info("Submitting solution %s for CAPTCHA at %s", captchaSolution, captchaUrl);
         response.meta[RETRY_KEY] = request.meta.get('captcha_retries', 0) + 1;
         return FormRequest.from_response(response, formnumber=0,
-                formdata={findCaptchaField(response.text):captchaSolution});
+                formdata={self.findCaptchaField(response.text):captchaSolution});
 
