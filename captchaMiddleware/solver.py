@@ -7,7 +7,6 @@ import cStringIO
 import numpy as np
 from string import ascii_uppercase
 import random
-import numpy as np
 import logging
 import cv2
 import imutils
