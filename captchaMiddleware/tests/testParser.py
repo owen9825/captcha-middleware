@@ -20,8 +20,10 @@ class ParsingTest(TestCase):
         sampleMiddleware = CaptchaMiddleware();
         captchaField = sampleMiddleware.findCaptchaField(self.openTestPage());
         self.assertTrue(captchaField == "field-keywords");
+        return;
 
     def testUrlSearch(self):
         sampleMiddleware = CaptchaMiddleware();
         captchaUrl = sampleMiddleware.findCaptchaUrl(self.openTestPage());
         self.assertTrue(captchaUrl == TEST_URL);
+        return;

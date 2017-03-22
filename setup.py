@@ -25,7 +25,9 @@ setup(
         'pytesseract',
         'numpy',
         'scrapy',
-        'bs4'
+        'bs4',
+	'opencv-python',
+	'imutils'
     ],
     test_suite='nose.collector',
     tests_require=['nose']

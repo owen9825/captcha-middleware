@@ -5,3 +5,5 @@ cStringIO
 numpy
 scrapy
 bs4
+opencv-python
+imutils
