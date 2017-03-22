@@ -26,8 +26,8 @@ setup(
         'numpy',
         'scrapy',
         'bs4',
-	'opencv-python',
-	'imutils'
+        'opencv-python',
+        'imutils'
     ],
     test_suite='nose.collector',
     tests_require=['nose']
