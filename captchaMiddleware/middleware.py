@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from scrapy.http import FormRequest
-from scrapy.exceptions import IgnoreRequest
 import logging
 import locale
+from scrapy.http import FormRequest
+from scrapy.exceptions import IgnoreRequest
+from captchaMiddleware.solver import solveCaptcha
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__);
