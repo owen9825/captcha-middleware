@@ -88,7 +88,7 @@ class CaptchaMiddleware(object):
             raise IgnoreRequest;
         # Return a request to submit the captcha
         logger.info("Submitting solution %s for CAPTCHA at %s", captchaSolution, captchaUrl);
-        response.meta[RETRY_KEY] = request.meta.get('captcha_retries', 0) + 1;
-        return FormRequest.from_response(response, formnumber=0,
+        formRequest = FormRequest.from_response(response, formnumber=0,
                 formdata={self.findCaptchaField(response.text):captchaSolution});
-
+        formRequest.meta[RETRY_KEY] = request.meta.get('captcha_retries', 0) + 1;
+        return formRequest;
