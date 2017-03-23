@@ -14,7 +14,7 @@ RETRY_KEY = 'captcha_retries';
 
 class CaptchaMiddleware(object):
     """Checks a page for a CAPTCHA test and, if present, submits a solution for it"""
-    MAX_CAPTCHA_ATTEMPTS = 2;
+    MAX_CAPTCHA_ATTEMPTS = 3;
 
     def containsCaptchaKeywords(self, text):
         # Check that the form mentions something about CAPTCHA
