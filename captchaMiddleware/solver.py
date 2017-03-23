@@ -97,7 +97,6 @@ def applyOcr(imgUrl):
         rotated = 255 - rotated;
         pilImg = Image.fromarray(rotated);
         charResult = image_to_string(pilImg, config="-psm 10");
-        print(charResult);
         if charResult is not None and len(charResult) > 0:
             moments = cv2.moments(contour);
             xCentre = int(moments["m10"]/moments["m00"]);
