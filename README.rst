@@ -5,28 +5,34 @@
 captchaMiddleware
 =====================
 
-Checks for a CAPTCHA test and tries solving it
+Checks for a CAPTCHA test and tries solving it. This is open-source so as to prevent slaves from
+being forced to solve CAPTCHA tests.
 
 Configuration
 -------------
 
-Turn off the built-in ``UserAgentMiddleware`` and add
-``RandomUserAgentMiddleware``.
-
-In Scrapy >=1.0:
+Include this in the Downloader Middleware
 
 ::
 
     DOWNLOADER_MIDDLEWARES = {
-        'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-        'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+        …
+        'captchaMiddleware.middleware.CaptchaMiddleware':500
     }
 
-In Scrapy <1.0:
+Install Tesseract
 
 ::
 
-    DOWNLOADER_MIDDLEWARES = {
-        'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': None,
-        'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
-    }
+     sudo apt-get install tesseract-ocr
+
+In your spider, set a meta key to prevent trying the tests too many times:
+::
+
+     from captchaMiddleware.middleware import RETRY_KEY
+     …
+     def start_requests(self):
+          …
+          for u, url in enumerate(urls):
+               yield scrapy.Request(url=url, callback=self.parse,
+                    errback=self.errorHandler, meta={RETRY_KEY:0, 'cookiejar': u % COOKIE_JAR_SIZE})
