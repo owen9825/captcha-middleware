@@ -33,6 +33,6 @@ In your spider, set a meta key to prevent trying the tests too many times:
      …
      def start_requests(self):
           …
-          for u, url in enumerate(urls):
+          for url in urls:
                yield scrapy.Request(url=url, callback=self.parse,
-                    errback=self.errorHandler, meta={RETRY_KEY:0, 'cookiejar': u % COOKIE_JAR_SIZE})
+                    errback=self.errorHandler, meta={RETRY_KEY:0})
