@@ -3,7 +3,6 @@
 from PIL import Image, ImageFilter
 from pytesseract import image_to_string
 import urllib
-import cStringIO
 import numpy as np
 from string import ascii_uppercase
 import random
@@ -17,6 +16,7 @@ UNSHARP_FILTER = ImageFilter.UnsharpMask(radius=3, threshold=1);
 CAPTCHA_LENGTH = 6;
 THRESHOLD = 255 - 30;
 
+
 def isPossible(captchaSolution):
     """Amazon always uses 6 uppercase Latin letters with no accents"""
     if len(captchaSolution) == CAPTCHA_LENGTH:
@@ -25,6 +25,7 @@ def isPossible(captchaSolution):
                 return False;
         return True;
     return False;
+
 
 def adjustSuggestion(input):
     input = input.upper();
@@ -48,6 +49,7 @@ def adjustSuggestion(input):
             result += random.choice(VOCABULARY);
     return result;
 
+
 def adjustAngle(angle):
     """Adjust an angle to something more reasonable"""
     if angle < 0:
@@ -63,6 +65,7 @@ def adjustAngle(angle):
         else:
             return angle;
 
+
 def solveCaptcha(imgUrl, brazen=False):
     result = applyOcr(imgUrl);
     if isPossible(result):
@@ -74,6 +77,7 @@ def solveCaptcha(imgUrl, brazen=False):
         return result;
     else:
         return None;
+
 
 def applyOcr(imgUrl):
     response = urllib.urlopen(imgUrl);

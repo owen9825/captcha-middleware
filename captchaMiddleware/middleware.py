@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__);
 KEYWORDS = {"en":["characters", "type"]};
 RETRY_KEY = 'captcha_retries';
 
+
 class CaptchaMiddleware(object):
     """Checks a page for a CAPTCHA test and, if present, submits a solution for it"""
     MAX_CAPTCHA_ATTEMPTS = 3;
