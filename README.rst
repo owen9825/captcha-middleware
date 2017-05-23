@@ -26,6 +26,12 @@ Install Tesseract
 
      sudo apt-get install tesseract-ocr
 
+Install Pillow in Python to substitute for PIL
+
+::
+    pip install pillow
+
+
 In your spider, set a meta key to prevent trying the tests too many times:
 ::
 
