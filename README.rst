@@ -29,7 +29,7 @@ Install Tesseract
 Install Pillow in Python to substitute for PIL
 
 ::
-    pip install pillow
+     pip install pillow
 
 
 In your spider, set a meta key to prevent trying the tests too many times:
