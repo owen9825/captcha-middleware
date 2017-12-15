@@ -29,6 +29,7 @@ Install Tesseract
 Install Pillow in Python to substitute for PIL
 
 ::
+
      pip install pillow
 
 
