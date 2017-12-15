@@ -4,6 +4,7 @@ from PIL import Image, ImageFilter
 from pytesseract import image_to_string
 import urllib
 import numpy as np
+import scipy.misc
 from string import ascii_uppercase
 import random
 import logging
@@ -16,6 +17,8 @@ UNSHARP_FILTER = ImageFilter.UnsharpMask(radius=3, threshold=1);
 CAPTCHA_LENGTH = 6;
 THRESHOLD = 255 - 30;
 
+
+logger = logging.getLogger(__name__)
 
 def isPossible(captchaSolution):
     """Amazon always uses 6 uppercase Latin letters with no accents"""
@@ -73,7 +76,7 @@ def solveCaptcha(imgUrl, brazen=False):
     elif brazen:
         # Guess something
         result = adjustSuggestion(result);
-        logging.debug("CAPTCHA was adjusted to %s", result);
+        logger.debug("CAPTCHA was adjusted to %s", result);
         return result;
     else:
         return None;
@@ -107,11 +110,13 @@ def applyOcr(imgUrl):
             while xCentre in letters:
                 xCentre += 1; # Avoid key clash
             letters[xCentre] = charResult.upper();
+            if logger.getEffectiveLevel() <= logging.DEBUG:
+                scipy.misc.imsave(charResult + ".jpg", pilImg);
         else:
-            logging.debug("No result for character %d", c);
+            logger.debug("No result for character %d", c);
     # Adjust letters based on X axis
     wordSolution = "";
     for xCentre in sorted(letters.keys()):
         wordSolution += letters[xCentre];
-    logging.debug("OCR saw %s", wordSolution);
+    logger.debug("OCR saw %s", wordSolution);
     return wordSolution;
