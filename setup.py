@@ -16,6 +16,9 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python',
+        'Framework :: Scrapy',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Scientific/Engineering :: Image Recognition',
         'Topic :: Internet :: WWW/HTTP',
     ],
     packages=[
