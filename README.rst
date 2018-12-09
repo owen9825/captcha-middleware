@@ -8,6 +8,40 @@ captchaMiddleware
 Checks for a CAPTCHA test and tries solving it. This is open-source so as to prevent slaves from
 being forced to solve CAPTCHA tests.
 
+Installation
+------------
+
+Install Tesseract and the language file
+
+::
+
+     sudo apt-get install tesseract-ocr
+     mkdir /usr/local/share/tessdata
+     sudo wget https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata --output-file=/usr/local/share/tessdata/eng.traineddata
+     sudo chmod a+w /usr/local/share/tessdata/eng.traineddata
+     export TESSDATA_PREFIX=/usr/local/share/tessdata/
+     which tesseract
+
+Install Pillow in Python to substitute for PIL
+
+::
+
+     pip install pillow
+
+Install captchaMiddleware
+
+::
+
+     python setup.py test
+     python setup.py install
+
+If the tests fail, test your tesseract installation:
+
+::
+
+    tesseract "unknown letter 0.jpg" prediction -psm 10
+
+
 Configuration
 -------------
 
@@ -20,17 +54,6 @@ Include this in the Downloader Middleware
         'captchaMiddleware.middleware.CaptchaMiddleware':500
     }
 
-Install Tesseract
-
-::
-
-     sudo apt-get install tesseract-ocr
-
-Install Pillow in Python to substitute for PIL
-
-::
-
-     pip install pillow
 
 
 In your spider, set a meta key to prevent trying the tests too many times:
