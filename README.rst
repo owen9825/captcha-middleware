@@ -16,9 +16,9 @@ Install Tesseract and the language file
 ::
 
      sudo apt-get install tesseract-ocr
-     mkdir /usr/local/share/tessdata
-     sudo wget https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata
-     mv eng.traineddata /usr/local/share/tessdata
+     sudo mkdir /usr/local/share/tessdata
+     wget https://github.com/tesseract-ocr/tessdata/raw/4.00/eng.traineddata
+     sudo mv eng.traineddata /usr/local/share/tessdata
      sudo chmod a+w /usr/local/share/tessdata/eng.traineddata
      export TESSDATA_PREFIX=/usr/local/share/tessdata
      which tesseract
