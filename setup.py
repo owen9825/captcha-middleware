@@ -27,6 +27,7 @@ setup(
     install_requires=[
         'pytesseract',
         'numpy',
+        'scipy'
         'scrapy',
         'bs4',
         'opencv-python',
