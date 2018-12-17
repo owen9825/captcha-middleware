@@ -25,6 +25,8 @@ Install Tesseract and the language file
      export TESSDATA_PREFIX=/usr/local/share/tessdata
      which tesseract
 
+Make sure to include the `TESSDATA_PREFIX` in your bash profile.
+
 Install Pillow in Python to substitute for PIL
 
 ::
@@ -42,7 +44,7 @@ If the tests fail, test your tesseract installation:
 
 ::
 
-    tesseract "unknown letter 0.jpg" prediction -psm 10
+    tesseract "unknown letter 0.jpg" prediction --psm 10 --oem 0
 
 
 Configuration
