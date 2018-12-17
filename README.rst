@@ -10,6 +10,8 @@ being forced to solve CAPTCHA tests.
 
 Installation
 ------------
+Note that this program relies on `Tesseract v4
+<https://github.com/tesseract-ocr/tesseract/wiki/Compiling/>`_, which is available on Ubuntu 18.04.
 
 Install Tesseract and the language file
 
