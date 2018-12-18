@@ -23,7 +23,7 @@ PyDispatcher
 pyOpenSSL>=17.5.0
 pytesseract>=0.1.6
 queuelib
-scipy
+scipy>=1.1.0
 Scrapy>=1.4.0
 service-identity
 six
