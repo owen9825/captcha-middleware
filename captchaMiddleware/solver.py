@@ -2,7 +2,10 @@
 
 from PIL import Image, ImageFilter
 from pytesseract import image_to_string
-import urllib
+try:
+    from urllib.request import urlopen
+except ImportError:
+    from urllib2 import urlopen
 import numpy as np
 import scipy.misc
 from string import ascii_uppercase
@@ -11,46 +14,47 @@ import logging
 import cv2
 import imutils
 
-VOCABULARY = filter(lambda letter: letter != "O", ascii_uppercase);
+VOCABULARY = list(filter(lambda letter: letter != "O", ascii_uppercase))
 
-UNSHARP_FILTER = ImageFilter.UnsharpMask(radius=3, threshold=1);
-CAPTCHA_LENGTH = 6;
-THRESHOLD = 255 - 30;
+UNSHARP_FILTER = ImageFilter.UnsharpMask(radius=3, threshold=1)
+CAPTCHA_LENGTH = 6
+THRESHOLD = 255 - 30
 
 
 logger = logging.getLogger(__name__)
+
 
 def isPossible(captchaSolution):
     """Amazon always uses 6 uppercase Latin letters with no accents"""
     if len(captchaSolution) == CAPTCHA_LENGTH:
         for letter in captchaSolution:
             if letter not in VOCABULARY:
-                return False;
-        return True;
-    return False;
+                return False
+        return True
+    return False
 
 
 def adjustSuggestion(input):
-    input = input.upper();
+    input = input.upper()
     if len(input) > CAPTCHA_LENGTH:
         # All letters will be filtered for eligibility later. For now though, preserve as much as 
         # possible
-        input = filter(lambda letter: letter in VOCABULARY, input);
+        input = filter(lambda letter: letter in VOCABULARY, input)
     while len(input) > CAPTCHA_LENGTH:
-        cutLocation = random.randint(0, len(input)-1);
-        input = input[0:cutLocation] + input[cutLocation+1:];
+        cutLocation = random.randint(0, len(input)-1)
+        input = input[0:cutLocation] + input[cutLocation+1:]
     while len(input) < CAPTCHA_LENGTH:
         # Throw in extra, random characters
-        insLocation = random.randint(0, len(input));
-        input = input[0:insLocation] + random.choice(VOCABULARY) + input[insLocation:];
-    result = "";
+        insLocation = random.randint(0, len(input))
+        input = input[0:insLocation] + random.choice(VOCABULARY) + input[insLocation:]
+    result = ""
     # Filter letters for eligibility
     for letter in input:
         if letter in VOCABULARY:
-            result += letter;
+            result += letter
         else:
-            result += random.choice(VOCABULARY);
-    return result;
+            result += random.choice(VOCABULARY)
+    return result
 
 
 def adjustAngle(angle):
@@ -88,7 +92,7 @@ def applyOcr(imgUrl):
     :param imgUrl: The URL for a CAPTCHA image.
     :return: The string in the imgae.
     """
-    response = urllib.urlopen(imgUrl)
+    response = urlopen("file://" + imgUrl)
     img = np.asarray(bytearray(response.read()), dtype="uint8")
     gray_img = cv2.imdecode(img, cv2.IMREAD_GRAYSCALE)
     # if it's black on white:

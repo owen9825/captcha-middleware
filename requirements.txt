@@ -12,7 +12,7 @@ imutils>=0.4.3
 lxml
 numpy>=1.12.1
 olefile
-opencv-python>=3.2.0.7
+opencv-python==3.4.5.20
 packaging
 parsel
 Pillow>=4.1.1
@@ -23,7 +23,7 @@ PyDispatcher
 pyOpenSSL>=17.5.0
 pytesseract>=0.1.6
 queuelib
-scipy>=1.1.0
+scipy==1.1.0
 Scrapy>=1.4.0
 service-identity
 six
