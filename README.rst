@@ -1,6 +1,5 @@
-.. image:: http://static.fjcdn.com/gifs/When+you+fail+the+captcha_06a12c_5483651.gif
-     :target: http://giphy.com/gifs/fail-gaDBMncAI7HEs
-     :alt: I must be a robot then
+.. image:: https://media.giphy.com/media/S0hxMGYFhEMzm/giphy.gif
+    :alt: I must be a robot then
 
 captchaMiddleware
 =====================
