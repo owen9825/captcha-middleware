@@ -12,7 +12,7 @@ imutils>=0.4.3
 lxml
 numpy>=1.12.1
 olefile
-opencv-python==3.4.5.20
+opencv-python==4.2.0.32
 packaging
 parsel
 Pillow>=4.1.1
